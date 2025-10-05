@@ -25,6 +25,9 @@ jobs:
           path: ~/.cache/pip
           key: cache-22cc6ff-${{ runner.os }}-${{ hashFiles('**/requirements.txt') }}
           restore-keys: cache-22cc6ff-
+      - name: prime-cache-22cc6ff
+        run: echo "Cache hit:${{ steps.cache.outputs.cache-hit }}"
+
 
       - name: Install dependencies
         run: |

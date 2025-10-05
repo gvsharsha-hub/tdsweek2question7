@@ -13,14 +13,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
       - name: Cache dependencies
         id: cache
         uses: actions/cache@v4
         with:
-          path: ~/.cache/pip
-          key: cache-22cc6ff-${{ runner.os }}
-          restore-keys: |
-            cache-22cc6ff-
+          path: |
+            ~/.cache/pip
+            ~/.cache/pip-build
+          key: cache-22cc6ff-${{ runner.os }}-${{ hashFiles('**/requirements.txt') }}
+          restore-keys:
+            - cache-22cc6ff-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: prime-cache-22cc6ff
         run: echo "Cache hit: ${{ steps.cache.outputs.cache-hit }}"

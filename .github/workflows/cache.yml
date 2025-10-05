@@ -35,4 +35,4 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: prime-cache-22cc6ff
-        run: echo "Cache hit: ${{ steps.cache.outputs.cache-hit }}"
+        run: echo "Cache hit:${{ steps.cache.outputs.cache-hit }}"
